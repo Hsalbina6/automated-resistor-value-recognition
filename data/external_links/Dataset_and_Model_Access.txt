@@ -1,0 +1,41 @@
+✅ FINAL CLEAN VERSION (copy–paste this)
+Dataset & Model Access
+
+Due to size limitations, the dataset and trained model are hosted externally.
+
+📦 Specialist Model Dataset
+
+Dataset  (Specialist):
+https://drive.google.com/file/d/1dRKxxO1VxtKxwdmsa6gnKeIQNCcrmbQm/view?usp=drive_link
+
+🤖 Trained Model (Specialist)
+
+Zipped model file:
+https://drive.google.com/file/d/1aMDBKXSLnQL6j3wiQOiKled8usp6SrgY/view?usp=drive_link
+
+🚀 Reproducible Setup (Recommended)
+##Step 1: Install dependency
+!pip install gdown
+##Step 2: Download dataset
+!gdown --id 1dRKxxO1VxtKxwdmsa6gnKeIQNCcrmbQm
+!unzip -q The_Specialist.zip -d /content/
+##Step 3: Download trained model
+!gdown --id 1aMDBKXSLnQL6j3wiQOiKled8usp6SrgY
+!unzip -q my_SP_1_Model.zip -d /content/model/
+##Step 4: Load model
+from ultralytics import YOLO
+import os
+
+model_path = '/content/model/my_SP_1_Model.pt'
+
+if os.path.exists(model_path):
+    model = YOLO(model_path)
+    print("Model loaded successfully")
+else:
+    print("Model file not found. Check extraction path.")
+
+
+⚠️ Important Notes
+Ensure the dataset zip name is: The_Specialist.zip
+Ensure the model file inside the zip is: my_SP_1_Model.pt
+Paths may need slight adjustment depending on extraction structure
