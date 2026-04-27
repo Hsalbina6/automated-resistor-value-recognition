@@ -1,41 +1,81 @@
 import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
-import numpy as np
+import tempfile
+import os
 
-# 1. Set up the page layout and title
-st.set_page_config(page_title="Resistor Value Detector", layout="centered")
-st.title("⚡ Resistor Value Detection App")
-st.write("Upload an image of a resistor, and the YOLO specialist model will detect its value and bounding box.")
+st.set_page_config(
+    page_title="Specialist Resistor Detector",
+    page_icon="⚡",
+    layout="centered"
+)
 
-# 2. Load the model (Cached so it doesn't reload every time a user clicks something)
+st.title("⚡ Specialist Model: Common Resistor Value Detection")
+st.write(
+    "Upload or capture a resistor image. The YOLO Specialist model will detect "
+    "the resistor and classify its common resistance value."
+)
+
+MODEL_PATH = "my_SP_1_Model.pt"
+
 @st.cache_resource
 def load_model():
-    # Make sure this filename matches your extracted .pt file exactly
-    return YOLO('my_SP_1_Model.pt')
+    return YOLO(MODEL_PATH)
 
 model = load_model()
 
-# 3. Create a file uploader
-uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
+st.sidebar.header("Prediction Settings")
+confidence = st.sidebar.slider("Confidence Threshold", 0.05, 1.0, 0.25, 0.05)
 
-if uploaded_file is not None:
-    # Open the uploaded image
-    image = Image.open(uploaded_file).convert("RGB")
-    
-    # Create two columns to show original and processed side-by-side
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.image(image, caption="Uploaded Image", use_container_width=True)
-        
-    with col2:
-        with st.spinner("Detecting resistors..."):
-            # Run inference
-            results = model.predict(source=image, conf=0.25)
-            
-            # The .plot() function returns a numpy array in BGR format
-            # We use [..., ::-1] to convert it from BGR to RGB for Streamlit to display properly
-            result_img = results[0].plot()[..., ::-1]
-            
-            st.image(result_img, caption="Detection Results", use_container_width=True)
+option = st.radio(
+    "Choose input method:",
+    ["Upload Image", "Use Camera"]
+)
+
+image_file = None
+
+if option == "Upload Image":
+    image_file = st.file_uploader(
+        "Upload resistor image",
+        type=["jpg", "jpeg", "png"]
+    )
+
+else:
+    image_file = st.camera_input("Take a resistor picture")
+
+if image_file is not None:
+    image = Image.open(image_file).convert("RGB")
+    st.image(image, caption="Input Image", use_container_width=True)
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as temp_file:
+        image.save(temp_file.name)
+        temp_path = temp_file.name
+
+    results = model.predict(
+        source=temp_path,
+        conf=confidence,
+        save=False
+    )
+
+    result = results[0]
+    plotted_image = result.plot()
+
+    st.subheader("Prediction Result")
+    st.image(plotted_image, caption="Detected Resistor Value", use_container_width=True)
+
+    st.subheader("Detected Classes")
+
+    if len(result.boxes) == 0:
+        st.warning("No resistor value detected. Try a clearer image or lower the confidence threshold.")
+    else:
+        for box in result.boxes:
+            class_id = int(box.cls[0])
+            class_name = model.names[class_id]
+            conf_score = float(box.conf[0])
+
+            st.success(f"Predicted Value: {class_name} Ω")
+            st.write(f"Confidence: {conf_score:.2f}")
+
+    os.remove(temp_path)
+else:
+    st.info("Upload an image or use the camera to start detection.")
