@@ -49,6 +49,8 @@ The project focuses on building a practical AI workflow that can take an image o
 ├── Presentation_Slides.pdf
 └── README.md
 
+---
+
 ## Main Code
 The main notebook is located in: `CODE/Specialist_Model (2).ipynb`
 
