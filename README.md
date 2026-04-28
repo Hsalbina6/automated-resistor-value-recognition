@@ -127,6 +127,21 @@ The **Generalist Model** was explored but was less reliable because it required 
 
 ---
 
+## Code Quality and Reproducibility
+
+All notebooks in this repository have been cleaned and structured to ensure full reproducibility and clarity for any stakeholder.
+
+- Experimental and scratchpad cells have been removed  
+- Broken or unused code has been eliminated  
+- Excessive logs and debugging outputs have been removed  
+- The workflow is organized into clear, logical steps  
+
+The dataset and model are accessed through external links with provided setup instructions, enabling the project to be fully reproduced in a new environment.
+
+This repository is structured to function as a complete professional handover, allowing any user to understand, reproduce, and extend the project without direct supervision.
+
+---
+
 ## Future Improvements
 * Expand the dataset with more resistor values and conditions
 * Improve the Generalist Model for color-band detection
