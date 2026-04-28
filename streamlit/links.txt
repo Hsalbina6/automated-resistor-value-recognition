@@ -1,0 +1,12 @@
+Smart Resistor Detection - Deployment Links
+
+Live App:
+https://resistor-detector-fcfshdi9kgsw59ceu5bmpo.streamlit.app/
+
+Streamlit App Repository:
+https://github.com/Hsalbina6/Resistor-app
+
+Description:
+This Streamlit application deploys the Specialist YOLO model for real-time resistor value detection.
+It includes image quality diagnostics, capture guidance, and an inventory tracking system.
+
