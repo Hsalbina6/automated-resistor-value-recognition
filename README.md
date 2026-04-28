@@ -70,6 +70,73 @@ This file includes:
 * `gdown` setup code
 * Model loading instructions
 
+## How to Run the Project
 
+1. **Install Requirements**
+   ```bash
+   pip install -r CODE/requirements.txt
 
+    ```
+### 2. Open the Notebook
+Open `CODE/Specialist_Model (2).ipynb`.
+* **Recommended environment:** Google Colab
+
+### 3. Load Dataset and Model
+Use the instructions inside `data/external_links/Dataset_and_Model_Access.txt`.
+
+### 4. Run YOLO Training or Prediction
+The notebook includes the full YOLO workflow for training, evaluation, prediction, and saving model outputs.
+
+---
+
+## Streamlit Deployment
+A deployed app version of the project is available. Links are provided here: `streamlit/links.txt`
+
+This file includes:
+* Live Streamlit app link
+* Separate Streamlit repository link
+* Short description of the deployed app
+
+---
+
+## OWLET AI Performance Evaluation
+The `OWLET/` folder contains the AI assistant performance review materials:
+* `OWLET_AI_Performance_Review.pdf`
+* `OWLET_Code.ipynb` (Python code used to generate the report and visuals)
+
+---
+
+## Presentation Slides
+The final project presentation is included as: `Presentation_Slides.pdf`
+
+---
+
+## Key Results
+The **Specialist Model** showed strong performance in recognizing common resistor values. However, because the dataset was relatively small, results should be interpreted with caution.
+
+The **Generalist Model** was explored but was less reliable because it required every individual color band to be detected correctly. Small errors in lighting, blur, shadows, or band order could lead to an incorrect final resistance value.
+
+---
+
+## Project Limitations
+* Dataset size was limited
+* Lighting and background variation affected predictions
+* Generalist color-band detection was highly sensitive
+* More data would improve model generalization
+* Real-world deployment requires more testing across resistor types and image conditions
+
+---
+
+## Future Improvements
+* Expand the dataset with more resistor values and conditions
+* Improve the Generalist Model for color-band detection
+* Add stronger image quality checks before prediction
+* Improve the Streamlit interface with a guide box for positioning
+* Test the model on images collected by other users
+
+---
+
+## Author
+**Hassan Alshaikh** Master of Engineering Management and Leadership  
+Rice University
 
