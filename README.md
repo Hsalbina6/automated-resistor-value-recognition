@@ -1,43 +1,166 @@
 # Automated Resistor Value Recognition
 
 ## Executive Summary
-This project develops a computer vision system for automated resistor value recognition. The goal is to reduce manual interpretation errors and improve speed and reliability in identifying resistor values under real-world conditions.
 
-The solution uses a dual-model approach. The first model detects resistor color bands using YOLO and estimates values based on band combinations. The second model classifies the most common resistor values directly. A decision logic layer is used to improve robustness when the two models disagree.
+This project develops an AI-based system for automated resistor value recognition. The goal is to help students and users quickly identify resistor values from images instead of manually reading color bands, which can be tedious, time-consuming, and error-prone.
 
-This repository serves as the official project handover. It is structured so that any stakeholder can understand, reproduce, and extend the work without direct supervision.
+The project uses a YOLO-based computer vision workflow to detect and classify resistors. The main working model is the **Specialist Model**, which classifies whole resistors based on common resistor values. A second concept, the **Generalist Model**, was explored to detect individual color bands, but it was more sensitive to lighting, shadows, blur, and band-ordering errors.
+
+This repository serves as the professional handover for the project. It includes the code, model access, dataset access, deployment links, presentation slides, and OWLET AI performance evaluation materials.
 
 ---
 
 ## Business Problem
-Manual resistor identification is prone to error, especially under conditions such as poor lighting, rotation, and visual ambiguity. These errors can lead to incorrect circuit assembly, increased debugging time, and reduced system reliability.
 
-An automated system can improve consistency, reduce human error, and support faster engineering workflows.
+Reading resistor color codes manually can slow down students during circuits labs and projects. Small visual differences, lighting conditions, and human error can lead to incorrect resistance values.
+
+This project addresses the question:
+
+**Can computer vision automate resistor value recognition from images and make the process faster and more reliable for students?**
 
 ---
 
 ## Proposed Solution
-This project implements:
 
-- A YOLO-based model for resistor band detection  
-- A classification model for common resistor values  
-- A decision logic layer to resolve conflicts between model outputs  
+The solution uses a YOLO object detection model trained on resistor images captured under different conditions, including variations in:
 
-This combined approach improves reliability compared to using a single model.
+- Lighting
+- Shadows
+- Reflections
+- Orientation
+- Backgrounds
+- Multiple resistors in one image
+
+The project focuses on building a practical AI workflow that can take an image of a resistor and return the predicted resistor value.
 
 ---
 
 ## Repository Structure
-- `notebooks/` → Jupyter notebooks for data preparation, training, and evaluation  
-- `data/` → Dataset description and access link  
-- `outputs/` → Generated figures, predictions, and reports  
-- `assets/` → Visuals and reference images  
-- `src/` → Supporting Python functions  
 
----
+```text
+.
+├── CODE/
+│   ├── Specialist_Model (2).ipynb
+│   └── requirements.txt
+│
+├── data/
+│   └── external_links/
+│       └── Dataset_and_Model_Access.txt
+│
+├── streamlit/
+│   └── links.txt
+│
+├── OWLET/
+│   ├── OWLET_AI_Performance_Review.pdf
+│   └── OWLET_Code.ipynb
+│
+├── Presentation_Slides.pdf
+└── README.md
+Main Code
 
-## How to Run
+The main notebook is located in:
 
-### 1. Install Dependencies
-```bash
-pip install -r requirements.txt
+CODE/Specialist_Model (2).ipynb
+
+This notebook includes:
+
+Dataset loading
+YOLO setup
+Training workflow
+Validation and evaluation
+Prediction on new images
+Model export and reuse steps
+Dataset and Model Access
+
+The dataset and trained model are not stored directly in this repository because of file size limits.
+
+Access links are provided here:
+
+data/external_links/Dataset_and_Model_Access.txt
+
+This file includes:
+
+Google Drive dataset link
+Google Drive trained model link
+gdown setup code
+Model loading instructions
+How to Run the Project
+1. Install Requirements
+pip install -r CODE/requirements.txt
+2. Open the Notebook
+
+Open:
+
+CODE/Specialist_Model (2).ipynb
+
+Recommended environment:
+
+Google Colab
+3. Load Dataset and Model
+
+Use the instructions inside:
+
+data/external_links/Dataset_and_Model_Access.txt
+4. Run YOLO Training or Prediction
+
+The notebook includes the full YOLO workflow for:
+
+Training
+Evaluation
+Prediction
+Saving model outputs
+Streamlit Deployment
+
+A deployed app version of the project is available.
+
+Links are provided here:
+
+streamlit/links.txt
+
+This file includes:
+
+Live Streamlit app link
+Separate Streamlit repository link
+Short description of the deployed app
+OWLET AI Performance Evaluation
+
+The OWLET folder contains the AI assistant performance review materials:
+
+OWLET/
+
+Included files:
+
+OWLET_AI_Performance_Review.pdf
+OWLET_Code.ipynb
+
+The notebook includes the Python code used to generate the OWLET performance evaluation report and visuals.
+
+Presentation Slides
+
+The final project presentation is included as:
+
+Presentation_Slides.pdf
+Key Results
+
+The Specialist Model showed strong performance in recognizing common resistor values. However, because the dataset was relatively small, results should be interpreted with caution.
+
+The Generalist Model was explored but was less reliable because it required every individual color band to be detected correctly. Small errors in lighting, blur, shadows, or band order could lead to an incorrect final resistance value.
+
+Project Limitations
+Dataset size was limited
+Lighting and background variation affected predictions
+Generalist color-band detection was highly sensitive
+More data would improve model generalization
+Real-world deployment requires more testing across resistor types and image conditions
+Future Improvements
+Expand the dataset with more resistor values and conditions
+Improve the Generalist Model for color-band detection
+Add stronger image quality checks before prediction
+Improve the Streamlit interface
+Add a guide box to help users position resistors correctly
+Test the model on images collected by other users
+Author
+
+Hassan Alshaikh
+Master of Engineering Management and Leadership
+Rice University
